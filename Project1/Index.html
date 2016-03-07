@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Isochrone</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <aside>
+        <h1>Isochrone</h1>
+        <p>
+            <label for="Location">Location:</label>
+            <input type="text" name="Location" value="Liège" />
+        </p>
+
+        <p>
+            <label for="Minutes">Minutes:</label>
+            <input type="text" name="Minutes" value="10" />
+        </p>
+
+        <input type="submit" value="Generate Isochrone" />
+
+    </aside>
+
+    <article id="map_canvas">
+        
+    </article>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="scripts/script.js"></script>
+</body>
+</html>
