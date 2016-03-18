@@ -89,6 +89,9 @@ function getDirections() {
 		destination: to,
 		travelMode: google.maps.TravelMode[selectedMode],
 		avoidHighways: false,
+		transitOptions: {
+		    routingPreference: google.maps.TransitRoutePreference.LESS_WALKING
+		}
 	};
 
 	directionsService.route(request, directionsearch);
@@ -139,7 +142,7 @@ function isochrone_Step(steps) {
 	var lastPoint = temp_Points[temp_Points.length - 1];
 
 	var hash = lastPoint.toString();
-	
+
 	if(!markers[hash])
 	{
 		markers[hash] = hash;

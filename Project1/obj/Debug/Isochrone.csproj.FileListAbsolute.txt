@@ -6,3 +6,4 @@ C:\Users\Benja\Desktop\LaboMulti\Isochrone\Project1\bin\Debug\Project1.exe.confi
 C:\Users\Benja\Desktop\Nouveau dossier (5)\Isochrone\Project1\bin\Debug\Project1.exe.config
 C:\Users\Virginie\Desktop\projet pluri\Isochrone\Project1\bin\Debug\Project1.exe.config
 C:\Users\Virginie\Desktop\projet pluri\Isochrone2\Project1\bin\Debug\Project1.exe.config
+C:\Users\Benja\Desktop\Git\Isochrone\Project1\bin\Debug\Project1.exe.config
