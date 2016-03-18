@@ -5,6 +5,8 @@
 	var drivePolyPoints = []
 
 	var searchPolygon, drivePolygon = null;
+	
+	var travel_distance_km ;
 
 	var travel_time_sec;
 	
@@ -39,12 +41,14 @@ var drawIsochrones = function(posi,ds,distance,time,mode) {
 	startpoint = posi;
 
 	directionsService = ds;
+	
+	travel_distance_km = (distance * 1000) || 1000;
 
 	travel_time_sec = (time * 60 ) || 60;
 	
     selectedMode = mode || google.maps.TravelMode.DRIVING;
     
-	//centerMarker = placeMarker(startpoint, true);
+	centerMarker = placeMarker(startpoint, true);
 	
 	searchPoints = getCirclePoints(startpoint, distance);
 	
@@ -78,16 +82,16 @@ function getDirections() {
 	//Removed processed Point. 
 	searchPoints.shift()
 	
-	directionsDisplay.setMap(map);
+	directionsDisplay.setMap(null);
 
 	var request = {
 		origin: from,
 		destination: to,
 		travelMode: google.maps.TravelMode[selectedMode],
-		avoidHighways: false
+		avoidHighways: false,
 	};
 
-	directionsService.route(request, directionsearch)
+	directionsService.route(request, directionsearch);
 };
 
 function directionsearch(response, status) {
@@ -98,9 +102,9 @@ function directionsearch(response, status) {
 	} else {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
-			//var distance = parseInt(response.routes[0].legs[0].distance.value / 1000);   //1609
+			var distance = parseInt(response.routes[0].legs[0].distance.value / 1609);
 			var duration = parseFloat(response.routes[0].legs[0].duration.value / 3600).toFixed(2);
-			console.log("duration:" + duration); // + " distance:" + distance);
+			console.log("duration:" + duration + " distance:" + distance);
 			isochrone_Step(response.routes[0].legs[0].steps);
 		} else {
 			console.log(status);
@@ -142,29 +146,29 @@ function isochrone_Step(steps) {
 		console.log(hash);
 		drivePolyPoints.push(lastPoint);
 	
-	    if (drivePolyPoints.length == 1) {
+	if (drivePolyPoints.length == 1) {
 
-		    drivePolygon = new google.maps.Polygon({
-			    paths: drivePolyPoints,
-			    strokeColor: '#FF0000',
-			    strokeOpacity: 0.8,
-			    strokeWeight: 1,
-			    fillColor: '#FF0000',
-			    fillOpacity: 0.35,
-			    clickable: false,
-			    map: map
-		    });
+		drivePolygon = new google.maps.Polygon({
+			paths: drivePolyPoints,
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 1,
+			fillColor: '#FF0000',
+			fillOpacity: 0.35,
+			clickable: false,
+			map: map
+		});
 		
-		    drivePolygon.setMap(map);
+		drivePolygon.setMap(map);
 		
-		    drivePolygons.push(drivePolygon)
-	    }
+		drivePolygons.push(drivePolygon)
+	}
 
-	    sortPoints2Polygon();
+	sortPoints2Polygon();
 	
-	    drivePolygon.setPaths(drivePolyPoints);
+	drivePolygon.setPaths(drivePolyPoints);
 
-	    placeMarker(lastPoint, false);
+	placeMarker(lastPoint, false);
 
 	}
 
@@ -185,13 +189,12 @@ function sortPoints2Polygon() {
 	}
 
 	var center = bounds.getCenter();
-	alert(center);
 	
-	//var bearing = [];
+	var bearing = [];
 	
 	for (var i = 0; i < points.length; i++) {
 		
-	    points[i].bearing = google.maps.geometry.spherical.computeHeading(bounds.getCenter(), points[i]);
+		points[i].bearing = google.maps.geometry.spherical.computeHeading(center, points[i]);
 	}
 
 	points.sort(sortByBearing);
@@ -219,6 +222,7 @@ function getCirclePoints(center, radius) {
 			var point = new google.maps.LatLng(parseFloat(y), parseFloat(x));
 			circlePoints.push(point);
 			if (a % pointInterval == 0) {
+			    
 				searchPoints.push(point)
 			}
 			
@@ -233,7 +237,8 @@ function getCirclePoints(center, radius) {
 		fillColor: '#ffffff',
 		geodesic: true,
 		fillOpacity: 0.5,
-		clickable: false
+		clickable: false,
+        visible: false
 	});
 
 	searchPolygon.setMap(map);
@@ -245,7 +250,7 @@ function placeMarker(location, isstartpoint) {
 	
 	var marker;
 
-	/*var center = {
+	var center = {
 	    //url: 'center.png',
 		//size: new google.maps.Size(32, 32),
 		origin: new google.maps.Point(0,0)
@@ -257,23 +262,23 @@ function placeMarker(location, isstartpoint) {
 		//size: new google.maps.Size(16, 16),
 		origin: new google.maps.Point(0,0)
 		//anchor: new google.maps.Point(8, 8)
-	};*/
+	};
 
 	if(isstartpoint)
 	{
 		marker = new google.maps.Marker({
-		    position: location,
+			position: location,
 			map: map,
-			visible: false,
+            visible : false,
 			//icon :center,
-			animation: google.maps.Animation.DROP
+			//animation: google.maps.Animation.DROP
 		});
 
 	}
 	else
 	{
 		marker = new google.maps.Marker({
-		    position: location,
+			position: location,
 			map: map,
             visible : false
 			//icon :point

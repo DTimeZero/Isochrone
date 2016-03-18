@@ -39,6 +39,12 @@ $(document).ready(function () {
                 }
             });
         });
+        /*var styledMap = new google.maps.StyledMapType(styles, {
+            name: "Isochrone Map"
+        });
+        
+        map.mapTypes.set('Isochrone Map', styledMap);
+        map.setMapTypeId('Isochrone Map');*/
     }
 
 
@@ -64,16 +70,16 @@ $(document).ready(function () {
         });
     }
 
-    //autocomplete search address
     autocomplete = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
     });
 
-    //initialize draw isochrone
     var startPlotting = function () {
+        
+        var tdur = $("[name=minutes]").val();
        
-        var duration = Number($("[name=minutes]").val());
+        var duration = Number(tdur);
         
         var selectedMode = $('input[name=transport]:checked').val();
 
@@ -85,9 +91,53 @@ $(document).ready(function () {
             }
             else
                 alert("Choose a duration.")
-        //window.startPlotting = startPlotting;
+        window.startPlotting = startPlotting;
+
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+
+        google.maps.event.addDomListener(window, 'load', initialize);
     
 
+
+/*function GenerateIsochrone() {
+   /* geocoder = new google.maps.Geocoder();
+    var address = $("[name=address]").val();
+    var minutes = $("[name=minutes]").val();
+
+    initialize();
+
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+
+            var strposition = results[0].geometry.location + "";
+            strposition = strposition.replace('(', '');
+            strposition = strposition.replace(')', '');
+
+            console.log(strposition)
+        };
+    });
+
+
+    console.log("Generate isochrone")
+
+       /* $.ajax({
+            url: 'https://legacy.route.cit.api.here.com/routing/6.2/calculateisoline.json',
+            type: 'GET',
+            dataType: 'jsonp',
+            jsonp: 'jsoncallback',
+            data: {
+                mode: 'fastest;',
+                start: '52.5160,13.3778',
+                time: 'PT0H10M',
+                app_id: '{YOUR_APP_ID}',
+                app_code: '{YOUR_APP_CODE}'
+            },
+            success: function (data) {
+                alert(JSON.stringify(data));
+            }
+        });
+
+    
+}*/
