@@ -40,6 +40,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="Index.html" />
+    <Content Include="scripts\Isochrone.js" />
     <Content Include="scripts\script.js" />
   </ItemGroup>
   <ItemGroup />

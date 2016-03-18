@@ -4,32 +4,45 @@
 <head>
     <meta charset="utf-8" />
     <title>Isochrone</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
 </head>
 <body>
-
-    <aside>
-        <h1>Isochrone</h1>
-        <p>
-            <label for="Location">Location:</label>
-            <input type="text" name="Location" value="Liège" />
-        </p>
-
-        <p>
-            <label for="Minutes">Minutes:</label>
-            <input type="text" name="Minutes" value="10" />
-        </p>
-
-        <input type="submit" value="Generate Isochrone" />
-
-    </aside>
-
-    <article id="map_canvas">
+    <div id="container">
+        <aside class="cf">
+            <h1>Isochrone</h1>
         
-    </article>
+                <label for="address">Location:</label>
+                <input type="text" class="further" name="address" id="address" />
+
+                <label class="further" for="minutes">Minutes:</label>
+                <input type="text" class="further" name="minutes" value="10" />
+              
+            <input type="submit" class="btn btn-primary right cf" id="generate" value="Generate Isochrone" />
+            <input type="submit" class="btn btn-primary right cf" id="search" value="Search" />
+          
+                <label class="further" for="transport">Transport by </label>
+                <input type="radio" name="transport" checked="checked" class="radio radio-inline" value="DRIVING" id="car"/>
+                <label for="car" class="label">Car</label>
+                <input type="radio" name="transport" class="radio radio-inline" value="WALKING" id="foot"/>
+                <label for="foot"class="label">Foot</label>
+                <input type="radio" name="transport" class="radio radio-inline" value="TRANSIT" id="bus"/>
+                <label for="bus" class="label">Bus</label>     
+
+
+        </aside>
+
+        <div id="map_canvas" class="cf"></div>
+
+
+    </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCrYjOk_3Tep-fzswDB4mG3fwHBIhFhiI" type="text/javascript"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places"></script>
+    <script type="text/javascript" src="scripts/Isochrone.js"></script>
     <script type="text/javascript" src="scripts/script.js"></script>
 </body>
 </html>
