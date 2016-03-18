@@ -63,8 +63,9 @@ var drawIsochrones = function(posi,ds,distance,time,mode) {
 };
 
 function getDirections() {
-	
 	if (!searchPoints.length) {
+	    $('.progress-bar').css('width', '100%');
+	    $('.progress-bar').text('100%');
 
 		//Remove Search Circle
 		searchPolygon.setMap(null);
@@ -74,7 +75,15 @@ function getDirections() {
 		//Process is finished.
 		return;
 
-	} 
+	}
+
+	else {
+
+	    //Calculate Percetage done.
+	    var percent = Math.round(100 - ((searchPoints.length / searchPointsmax) * 100));
+	    $('.progress-bar').css('width', percent + '%');
+	    $('.progress-bar').text(percent + '%'); 
+	}
 
 	var from = startpoint.lat() + ' ' + startpoint.lng();
 	var to = searchPoints[0].lat() + ' ' + searchPoints[0].lng();

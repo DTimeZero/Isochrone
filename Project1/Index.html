@@ -19,7 +19,7 @@
                 <label class="further" for="minutes">Minutes:</label>
                 <input type="text" class="further" name="minutes" value="10" />
               
-            <input type="submit" class="btn btn-primary right cf" id="generate" value="Generate Isochrone" />
+            <input type="submit" class="btn btn-primary right cf" id="generate" data-toggle="modal" data-target="#myModal" value="Generate Isochrone"/>
             <input type="submit" class="btn btn-primary right cf" id="search" value="Search" />
           
                 <label class="further" for="transport">Transport by </label>
@@ -28,13 +28,14 @@
                 <input type="radio" name="transport" class="radio radio-inline" value="WALKING" id="foot"/>
                 <label for="foot"class="label">Foot</label>
                 <input type="radio" name="transport" class="radio radio-inline" value="TRANSIT" id="bus"/>
-                <label for="bus" class="label">Bus</label>     
-
+                <label for="bus" class="label">Bus</label>   
+            <div class="progress progress-striped active">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><div>
+            </div>
 
         </aside>
 
         <div id="map_canvas" class="cf"></div>
-
 
     </div>
 
