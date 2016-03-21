@@ -93,7 +93,7 @@ $(document).ready(function () {
                     case "DRIVING":
                         distance = duration * 2;
                         break;
-                    default:
+                    case "TRANSIT":
                         distance = duration;
                 }
                 drawIsochrones(posi, directionsService, distance, duration, travelMode, color);

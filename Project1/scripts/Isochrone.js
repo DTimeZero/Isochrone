@@ -1,7 +1,5 @@
 	var drivePolygons = [];
 	
-	var circlePoints = [];
-	
 	var drivePolyPoints = []
 
 	var searchPolygon, drivePolygon = null;
@@ -24,12 +22,11 @@
 
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 
-	var color = "FF0000";
+	var color;
 
 	var requestDelay = 100;
 
 	var reset = function () {
-	    circlePoints = [];
 
 	    drivePolyPoints = [];
 
@@ -70,9 +67,6 @@ function getDirections() {
 	if (!searchPoints.length) {
 	    $('.progress-bar').css('width', '100%');
 	    $('.progress-bar').text('100%');
-
-		//Remove Search Circle
-		searchPolygon.setMap(null);
 
 		reset();
 
@@ -152,43 +146,45 @@ function isochrone_Step(steps) {
 	}
 
     //This point becomes the Drivetime polygon marker.
-	var lastPoint = temp_Points[temp_Points.length - 1];
+	if (temp_Points.length != 0) {
+	    var lastPoint = temp_Points[temp_Points.length - 1];
 
-	var hash = lastPoint.toString();
+	    var hash = lastPoint.toString();
 
-	if(!markers[hash])
-	{
-		markers[hash] = hash;
-		console.log(hash);
-		drivePolyPoints.push(lastPoint);
-	
-	if (drivePolyPoints.length == 1) {
+	    if (!markers[hash]) {
+	        markers[hash] = hash;
+	        console.log(hash);
+	        drivePolyPoints.push(lastPoint);
 
-		drivePolygon = new google.maps.Polygon({
-			paths: drivePolyPoints,
-			strokeColor: color,
-			strokeOpacity: 0.8,
-			strokeWeight: 1,
-			fillColor: color,
-			fillOpacity: 0.35,
-			clickable: false,
-			map: map
-		});
-		
-		drivePolygon.setMap(map);
-		
-		drivePolygons.push(drivePolygon)
+	        if (drivePolyPoints.length == 1) {
+
+	            drivePolygon = new google.maps.Polygon({
+	                paths: drivePolyPoints,
+	                strokeColor: color,
+	                strokeOpacity: 0.8,
+	                strokeWeight: 1,
+	                fillColor: color,
+	                fillOpacity: 0.35,
+	                clickable: false,
+	                map: map
+	            });
+
+	            drivePolygon.setMap(map);
+
+	            drivePolygons.push(drivePolygon)
+	        }
+
+	        sortPoints2Polygon();
+
+	        drivePolygon.setPaths(drivePolyPoints);
+
+	        placeMarker(lastPoint, false);
+
+	    }
+
+
+	    setTimeout("getDirections()", requestDelay);
 	}
-
-	sortPoints2Polygon();
-	
-	drivePolygon.setPaths(drivePolyPoints);
-
-	placeMarker(lastPoint, false);
-
-	}
-
-	setTimeout("getDirections()", requestDelay);
 };
 
 function sortPoints2Polygon() {
