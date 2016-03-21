@@ -1,7 +1,5 @@
 	var drivePolygons = [];
 	
-	var circlePoints = [];
-	
 	var drivePolyPoints = []
 
 	var searchPolygon, drivePolygon = null;
@@ -29,7 +27,6 @@
 	var requestDelay = 100;
 
 	var reset = function () {
-	    circlePoints = [];
 
 	    drivePolyPoints = [];
 
@@ -76,8 +73,6 @@ function getDirections() {
 	    $('.progress-bar').css('width', '100%');
 	    $('.progress-bar').text('100%');
 
-		//Remove Search Circle
-		searchPolygon.setMap(null);
 
 		reset();
 
