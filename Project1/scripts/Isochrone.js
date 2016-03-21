@@ -71,8 +71,13 @@ var drawIsochrones = function(posi,ds,distance,time,mode) {
 function getDirections() {
 	if (!searchPoints.length) {
 	    $('.progress-bar').css('width', '100%');
+<<<<<<< HEAD
 	    $('.progress-bar').text('100%');
 
+=======
+	    $('.progress-bar').text('Generation complete!');
+	    $('.progress-bar').css('background-color', '#5cb85c');
+>>>>>>> origin/master
 
 		reset();
 
@@ -84,6 +89,7 @@ function getDirections() {
 	else {
 
 	    //Calculate Percetage done.
+	    $('.progress-bar').css('background-color', '#5bc0de');
 	    var percent = Math.round(100 - ((searchPoints.length / searchPointsmax) * 100));
 	    $('.progress-bar').css('width', percent + '%');
 	    $('.progress-bar').text(percent + '%'); 
