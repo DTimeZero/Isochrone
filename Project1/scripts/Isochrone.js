@@ -8,7 +8,7 @@
 
 	var travel_time_sec;
 	
-	var pointInterval = 3;
+	var pointInterval = 10;
 	
 	var startpoint;
 	
@@ -141,6 +141,8 @@ function isochrone_Step(steps) {
 	
 	var temp_Points = [];
 	
+	var oldPoint;
+
 	var comparator = travel_time_sec;
 
 	for (var n = 0; n < steps.length; n++) {
@@ -156,9 +158,12 @@ function isochrone_Step(steps) {
 	}
 
     //This point becomes the Drivetime polygon marker.
-	//if (temp_Points.length > 0) {
+	if (temp_Points.length > 0) {
 	    var lastPoint = temp_Points[temp_Points.length - 1];
-
+	}
+	else {
+	    lastPoint = oldPoint;
+	}
 	    var hash = lastPoint.toString();
 
 	    if (!markers[hash]) {
@@ -191,7 +196,7 @@ function isochrone_Step(steps) {
 	        placeMarker(lastPoint, false);
 
 	    }
-
+	    oldPoint = lastPoint;
 	    setTimeout("getDirections()", requestDelay);
 	//}
 };

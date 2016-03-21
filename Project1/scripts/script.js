@@ -88,7 +88,7 @@ $(document).ready(function () {
                 var posi = marker.getPosition();
                 switch (selectedMode) {
                     case "WALKING":
-                        distance = duration * 7 / 60;
+                        distance = duration * 5 / 60;
                         break;
                     case "DRIVING":
                         distance = duration * 2;
