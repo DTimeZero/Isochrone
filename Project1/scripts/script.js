@@ -80,6 +80,8 @@ $(document).ready(function () {
 
         var travelMode = google.maps.TravelMode[selectedMode];
 
+        var color = "FF0000";
+
         var distance=0;
         
             if (duration > -1) {
@@ -94,7 +96,7 @@ $(document).ready(function () {
                     default:
                         distance = duration;
                 }
-                drawIsochrones(posi, directionsService, distance, duration, travelMode);
+                drawIsochrones(posi, directionsService, distance, duration, travelMode, color);
             }
             else
                 alert("Choose a duration.")

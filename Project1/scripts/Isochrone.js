@@ -24,6 +24,8 @@
 
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 
+	var color = "FF0000";
+
 	var requestDelay = 100;
 
 	var reset = function () {
@@ -36,8 +38,10 @@
 	    directionsDisplay.setMap(null);
 	};
 
-var drawIsochrones = function(posi,ds,distance,time,mode) {
+var drawIsochrones = function(posi,ds,distance,time,mode, colorSelected) {
 	
+    color = colorSelected;
+
 	startpoint = posi;
 
 	directionsService = ds;
@@ -162,10 +166,10 @@ function isochrone_Step(steps) {
 
 		drivePolygon = new google.maps.Polygon({
 			paths: drivePolyPoints,
-			strokeColor: '#FF0000',
+			strokeColor: color,
 			strokeOpacity: 0.8,
 			strokeWeight: 1,
-			fillColor: '#FF0000',
+			fillColor: color,
 			fillOpacity: 0.35,
 			clickable: false,
 			map: map
