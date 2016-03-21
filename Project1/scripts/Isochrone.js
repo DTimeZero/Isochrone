@@ -10,7 +10,7 @@
 
 	var travel_time_sec;
 	
-	var pointInterval = 5;
+	var pointInterval = 3;
 	
 	var startpoint;
 	
@@ -222,7 +222,6 @@ function sortByBearing(a, b) {
 
 function getCirclePoints(center, radius) {
 
-	var circlePoints = [];
 	var searchPoints = [];
 	with(Math) {
 		var rLat = (radius / 6378.135) * (180 / PI);
@@ -231,29 +230,16 @@ function getCirclePoints(center, radius) {
 			var aRad = a * (PI / 180);
 			var x = center.lng() + (rLng * cos(aRad));
 			var y = center.lat() + (rLat * sin(aRad));
-			var point = new google.maps.LatLng(parseFloat(y), parseFloat(x));
-			circlePoints.push(point);
+			
 			if (a % pointInterval == 0) {
+			    var point = new google.maps.LatLng(parseFloat(y), parseFloat(x));
+			    searchPoints.push(point);
 			    
-				searchPoints.push(point)
 			}
 			
 		}
 	}
-	
-	searchPolygon = new google.maps.Polygon({
-		paths: circlePoints,
-		strokeColor: '#000000',
-		strokeOpacity: 1,
-		strokeWeight: 1,
-		fillColor: '#ffffff',
-		geodesic: true,
-		fillOpacity: 0.5,
-		clickable: false,
-        visible: false
-	});
 
-	searchPolygon.setMap(map);
 	
 	return searchPoints
 };
