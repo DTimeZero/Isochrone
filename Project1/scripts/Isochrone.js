@@ -71,13 +71,11 @@ var drawIsochrones = function(posi,ds,distance,time,mode) {
 function getDirections() {
 	if (!searchPoints.length) {
 	    $('.progress-bar').css('width', '100%');
-<<<<<<< HEAD
 	    $('.progress-bar').text('100%');
 
-=======
 	    $('.progress-bar').text('Generation complete!');
 	    $('.progress-bar').css('background-color', '#5cb85c');
->>>>>>> origin/master
+
 
 		reset();
 
@@ -158,7 +156,7 @@ function isochrone_Step(steps) {
 	}
 
     //This point becomes the Drivetime polygon marker.
-	if (temp_Points.length > 0) {
+	//if (temp_Points.length > 0) {
 	    var lastPoint = temp_Points[temp_Points.length - 1];
 
 	    var hash = lastPoint.toString();
@@ -195,7 +193,7 @@ function isochrone_Step(steps) {
 	    }
 
 	    setTimeout("getDirections()", requestDelay);
-	}
+	//}
 };
 
 function sortPoints2Polygon() {
