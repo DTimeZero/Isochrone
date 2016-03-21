@@ -1,6 +1,8 @@
 	var drivePolygons = [];
 	
-	var drivePolyPoints = []
+	var drivePolyPoints = [];
+
+	var oldPoint;
 
 	var searchPolygon, drivePolygon = null;
 	
@@ -141,7 +143,7 @@ function isochrone_Step(steps) {
 	
 	var temp_Points = [];
 	
-	var oldPoint;
+	
 
 	var comparator = travel_time_sec;
 
