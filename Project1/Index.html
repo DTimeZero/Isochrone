@@ -29,6 +29,11 @@
                 <label for="foot"class="label">Foot</label>
                 <input type="radio" name="transport" class="radio radio-inline" value="TRANSIT" id="bus"/>
                 <label for="bus" class="label">Bus</label>   
+            <label for="colorPicker">Color:</label>
+            <input type="color" name="colorPicker" id="colorPicker" class="further" onchange="changeColor()"/>
+
+
+
             <div class="progress progress-striped active">
                 <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"><div>
             </div>
@@ -40,7 +45,7 @@
     </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCrYjOk_3Tep-fzswDB4mG3fwHBIhFhiI&callback=initMap" type="text/javascript"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBCrYjOk_3Tep-fzswDB4mG3fwHBIhFhiI" type="text/javascript"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&amp;sensor=false"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,places"></script>
     <script type="text/javascript" src="scripts/Isochrone.js"></script>

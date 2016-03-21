@@ -1,5 +1,7 @@
 	var drivePolygons = [];
 	
+	var circlePoints = [];
+	
 	var drivePolyPoints = []
 
 	var searchPolygon, drivePolygon = null;
@@ -22,11 +24,12 @@
 
 	var directionsDisplay = new google.maps.DirectionsRenderer();
 
-	var color;
+	var color = $("#colorPicker").val();
 
 	var requestDelay = 100;
 
 	var reset = function () {
+	    circlePoints = [];
 
 	    drivePolyPoints = [];
 
@@ -35,9 +38,14 @@
 	    directionsDisplay.setMap(null);
 	};
 
-var drawIsochrones = function(posi,ds,distance,time,mode, colorSelected) {
 	
-    color = colorSelected;
+
+	var changeColor = function () {
+	    color = document.getElementById("colorPicker").value;
+	    console.log(color);
+	}
+
+var drawIsochrones = function(posi,ds,distance,time,mode) {
 
 	startpoint = posi;
 
@@ -67,6 +75,9 @@ function getDirections() {
 	if (!searchPoints.length) {
 	    $('.progress-bar').css('width', '100%');
 	    $('.progress-bar').text('100%');
+
+		//Remove Search Circle
+		searchPolygon.setMap(null);
 
 		reset();
 
@@ -146,7 +157,7 @@ function isochrone_Step(steps) {
 	}
 
     //This point becomes the Drivetime polygon marker.
-	if (temp_Points.length != 0) {
+	if (temp_Points.length > 0) {
 	    var lastPoint = temp_Points[temp_Points.length - 1];
 
 	    var hash = lastPoint.toString();
@@ -181,7 +192,6 @@ function isochrone_Step(steps) {
 	        placeMarker(lastPoint, false);
 
 	    }
-
 
 	    setTimeout("getDirections()", requestDelay);
 	}
@@ -249,17 +259,11 @@ function placeMarker(location, isstartpoint) {
 	var marker;
 
 	var center = {
-	    //url: 'center.png',
-		//size: new google.maps.Size(32, 32),
 		origin: new google.maps.Point(0,0)
-		//anchor: new google.maps.Point(16, 32)
 	};
 
 	var point = {
-	    //url: 'point.png',
-		//size: new google.maps.Size(16, 16),
 		origin: new google.maps.Point(0,0)
-		//anchor: new google.maps.Point(8, 8)
 	};
 
 	if(isstartpoint)
@@ -267,9 +271,7 @@ function placeMarker(location, isstartpoint) {
 		marker = new google.maps.Marker({
 			position: location,
 			map: map,
-            visible : false,
-			//icon :center,
-			//animation: google.maps.Animation.DROP
+            visible : false
 		});
 
 	}
@@ -279,7 +281,6 @@ function placeMarker(location, isstartpoint) {
 			position: location,
 			map: map,
             visible : false
-			//icon :point
 		});
 	}
 
