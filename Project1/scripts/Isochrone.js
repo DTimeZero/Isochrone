@@ -143,12 +143,9 @@ function isochrone_Step(steps) {
 	
 	var temp_Points = [];
 	
-	
-
 	var comparator = travel_time_sec;
 
 	for (var n = 0; n < steps.length; n++) {
-		
 	    unit += steps[n].duration.value;
 		
 		if (unit < comparator) {
@@ -167,12 +164,10 @@ function isochrone_Step(steps) {
 	    lastPoint = oldPoint;
 	}
 	    var hash = lastPoint.toString();
-
 	    if (!markers[hash]) {
 	        markers[hash] = hash;
 	        console.log(hash);
 	        drivePolyPoints.push(lastPoint);
-
 	        if (drivePolyPoints.length == 1) {
 
 	            drivePolygon = new google.maps.Polygon({
@@ -192,15 +187,14 @@ function isochrone_Step(steps) {
 	        }
 
 	        sortPoints2Polygon();
-
+	        
 	        drivePolygon.setPaths(drivePolyPoints);
-
+	        
 	        placeMarker(lastPoint, false);
 
 	    }
 	    oldPoint = lastPoint;
 	    setTimeout("getDirections()", requestDelay);
-	//}
 };
 
 function sortPoints2Polygon() {
