@@ -26,6 +26,8 @@
 
 	var requestDelay = 100;
 
+	var starterPointInPoly;
+
 	var reset = function () {
 
 	    drivePolyPoints = [];
@@ -40,7 +42,9 @@
 	    console.log(color);
 	}
 
-var drawIsochrones = function(posi,ds,distance,time,mode) {
+	var drawIsochrones = function (posi, ds, distance, time, mode) {
+
+	starterPointInPoly = false;
 
 	startpoint = posi;
 
@@ -66,9 +70,11 @@ var drawIsochrones = function(posi,ds,distance,time,mode) {
 
 function getDirections() {
     if (!searchPoints.length) {
-        drivePolyPoints.push(startpoint);
-        sortPoints2Polygon();
-        drivePolygon.setPaths(drivePolyPoints);
+        if (!starterPointInPoly) {
+            drivePolyPoints.push(startpoint);
+            sortPoints2Polygon();
+            drivePolygon.setPaths(drivePolyPoints);
+        }
 
 	    $('.progress-bar').css('width', '100%');
 	    $('.progress-bar').text('100%');
@@ -144,10 +150,6 @@ function isochrone_Step(steps) {
 		
 	    if (unit < comparator) {
 	        temp_Points.push(steps[n].end_location);
-	        if (steps.length - 1 > n && unit + steps[n + 1].duration.value > comparator && n > 1) {
-                //In progress
-	            //temp_Points.push(calculateIntermediatePoint(comparator, unit, unit-steps[n - 1].duration.value, startpoint, steps[n].end_location,steps[n-1].end_location));
-	        }
 		}
 		 else {
 			break;
@@ -177,7 +179,7 @@ function isochrone_Step(steps) {
 	            strokeOpacity: 0.05,
 	            strokeWeight: 1,
 	            fillColor: color,
-	            fillOpacity: 0.15,
+	            fillOpacity: 0.25,
 	            clickable: false,
 	            map: map
 	        });
@@ -190,6 +192,10 @@ function isochrone_Step(steps) {
 	    sortPoints2Polygon();
 	        
 	    drivePolygon.setPaths(drivePolyPoints);
+
+	    if (google.maps.geometry.poly.containsLocation(startpoint, drivePolygon)) {
+	        starterPointInPoly = true;
+	    }
 	        
 	    placeMarker(lastPoint, false);
 
@@ -271,32 +277,4 @@ function placeMarker(location, isstartpoint) {
 		});
 	}
 	return marker
-}
-
-// useless for this moment, don't delete
-function getListCircle(radius, center) {
-    var tabCircle=[];
-    for (var i = center; i > radius / 10; i -= radius / 10) {
-        tabCircle.push(getCirclePoints(center, i));
-    }
-    return tabCircle;
-    var request = {
-        origin: startpoint,
-        destination: lastPoint,
-        travelMode: google.maps.TravelMode[selectedMode],
-        avoidHighways: false,
-    };
-    directionsService.route(request, directionsearch);
-}
-function calculateIntermediatePoint(limit,value,distance, point1, point2, point3) {
-   
-    var pourcentage = (limit - value) / distance;
-    console.log(" % =" + pourcentage);
-    var latAjout =(point2.lat()-point3.lat())*pourcentage;
-    var longAjout = (point2.lng() - point3.lng()) * pourcentage;
-    console.log(" lat a lng a " + latAjout +" "+longAjout);
-
-    var result = new google.maps.LatLng(point3.lat() + latAjout, point3.lng() + longAjout);
-    console.log("result ="+result);
-    return result;
 }
