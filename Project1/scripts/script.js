@@ -91,7 +91,7 @@ $(document).ready(function () {
                         distance = duration * 5 / 60;
                         break;
                     case "DRIVING":
-                        distance = duration * 2;
+                        distance = duration ;
                         break;
                     default:
                         distance = duration;
