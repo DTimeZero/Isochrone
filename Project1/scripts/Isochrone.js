@@ -170,15 +170,15 @@ function isochrone_Step(steps) {
 	        markers[hash] = hash;
 	        
 	        drivePolyPoints.push(lastPoint);
-	        if (drivePolyPoints.length == 1) {
+	        if (drivePolyPoints.length >= 1) {
 
 	            drivePolygon = new google.maps.Polygon({
 	                paths: drivePolyPoints,
 	                strokeColor: color,
-	                strokeOpacity: 0.8,
+	                strokeOpacity: 0.05,
 	                strokeWeight: 1,
 	                fillColor: color,
-	                fillOpacity: 0.35,
+	                fillOpacity: 0.15,
 	                clickable: false,
 	                map: map
 	            });
