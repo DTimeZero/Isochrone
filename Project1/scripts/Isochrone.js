@@ -151,8 +151,11 @@ function isochrone_Step(steps) {
 		
 	    unit += steps[n].duration.value;
 		
-		if (unit < comparator) {
-			temp_Points.push(steps[n].end_location)
+	    if (unit < comparator) {
+	        temp_Points.push(steps[n].end_location);
+	        if (steps.length-1>n && unit+ steps[n+1].duration.value>comparator&&n>1) {
+	            //temp_Points.push(calculateIntermediatePoint(comparator, unit, unit-steps[n - 1].duration.value, startpoint, steps[n].end_location));
+	        }
 		}
 		 else {
 			break;
@@ -160,17 +163,20 @@ function isochrone_Step(steps) {
 	}
 
     //This point becomes the Drivetime polygon marker.
+	console.log(temp_Points);
 	if (temp_Points.length > 0) {
 	    var lastPoint = temp_Points[temp_Points.length - 1];
 	}
 	else {
 	    lastPoint = oldPoint;
 	}
-	    var hash = lastPoint.toString();
+	console.log(lastPoint);
+	var hash = lastPoint.toString();
+    
 
 	    if (!markers[hash]) {
 	        markers[hash] = hash;
-	        console.log(hash);
+	        
 	        drivePolyPoints.push(lastPoint);
 
 	        if (drivePolyPoints.length == 1) {
@@ -291,4 +297,32 @@ function placeMarker(location, isstartpoint) {
 	}
 
 	return marker
+}
+// useless for this moment, don't delete
+function getListCircle(radius, center) {
+    var tabCircle=[];
+    for (var i = center; i > radius / 10; i -= radius / 10) {
+        tabCircle.push(getCirclePoints(center, i));
+    }
+    return tabCircle;
+    var request = {
+        origin: startpoint,
+        destination: lastPoint,
+        travelMode: google.maps.TravelMode[selectedMode],
+        avoidHighways: false,
+    };
+    directionsService.route(request, directionsearch);
+}
+function calculateIntermediatePoint(limit,value,distance, point1, point2) {
+   
+    var pourcentage = (limit - value) / distance;
+    console.log(" % =" + pourcentage);
+    var latAjout =(point2.lat()-point1.lat())*pourcentage;
+    var longAjout = (point2.lng() - point1.lng()) * pourcentage;
+    console.log(" lat a lng a " + latAjout +" "+longAjout);
+
+
+    var result = new google.maps.LatLng(point1.lat() + latAjout, point1.lng() + longAjout);
+    console.log("result ="+result);
+    return result;
 }
